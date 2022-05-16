@@ -4,7 +4,15 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        spring: ["Spring", "serif"],
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("tailwind-scrollbar"),
+    require("tailwind-scrollbar-hide"),
+  ],
 }
