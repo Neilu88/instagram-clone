@@ -58,7 +58,7 @@ const Header = () => {
 
         <div className="flex items-center justify-end space-x-4">
           <HomeIcon onClick={() => router.push("/")} className="navBtn" />
-          <MenuIcon className="h-6 md:hidden cursor-pointer" />
+          <MenuIcon className="h-6 hidden sm:inline-flex md:hidden cursor-pointer" />
 
           {session ? (
             <>
@@ -86,7 +86,9 @@ const Header = () => {
               />
             </>
           ) : (
-            <button onClick={signIn}>Sign In</button>
+            <button className="text-xs sm:text-lg" onClick={signIn}>
+              Sign In
+            </button>
           )}
         </div>
       </div>

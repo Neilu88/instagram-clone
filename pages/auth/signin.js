@@ -6,8 +6,8 @@ const signin = ({ providers }) => {
     <>
       <Header />
 
-      <div className="flex flex-col items-center justify-center min-h-screen py-2 -mt-56 px-14 text-center">
-        <h1 className="text-7xl font-spring">Neilugram</h1>
+      <div className="flex flex-col items-center justify-center min-h-screen py-2 -mt-36 px-14 text-center">
+        <h1 className="text-7xl mt-4 font-spring">Neilugram</h1>
         <div className="mt-40 ">
           {Object.values(providers).map((provider) => (
             <div key={provider.name}>

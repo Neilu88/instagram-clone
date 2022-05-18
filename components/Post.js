@@ -170,7 +170,7 @@ const Post = ({ id, username, userImg, img, caption }) => {
             type="submit"
             disabled={!comment.trim}
             onClick={sendComment}
-            className="font-semi-bold text-blue-400 "
+            className="font-semi-bold text-blue-500 "
           >
             Post
           </button>
