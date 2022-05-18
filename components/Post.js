@@ -13,7 +13,7 @@ const Post = ({ id, username, userImg, img, caption }) => {
   return (
     <div className="bg-white border rounded-sm my-7">
       {/* Header */}
-      <div className="flex items-center p-5 ">
+      <div className="flex select-none items-center p-5 ">
         <img
           draggable={false}
           className="rounded-full h-12 w-12 object-contain border p1 mr-3"
@@ -37,8 +37,8 @@ const Post = ({ id, username, userImg, img, caption }) => {
       </div>
 
       {/* caption */}
-      <p className="p-5 truncate">
-        <span className="font-bold mr-1">{username} </span>
+      <p className="p-5 select-none truncate">
+        <span className="font-bold mr-1 select-none">{username} </span>
         {caption}
       </p>
       {/* comments */}

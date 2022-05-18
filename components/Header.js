@@ -9,16 +9,27 @@ import {
 } from "@heroicons/react/outline"
 
 import { HomeIcon } from "@heroicons/react/solid"
+import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from "next/router"
 
 const Header = () => {
+  const { data: session } = useSession()
+  const router = useRouter()
+
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl items-center mx-5 xl:mx-auto">
         {/* Left */}
-        <div className="hidden lg:inline-grid cursor-pointer select-none">
+        <div
+          onClick={() => router.push("/")}
+          className="hidden lg:inline-grid cursor-pointer select-none"
+        >
           <h1 className="text-3xl font-spring">Neilugram</h1>
         </div>
-        <div className="relative w-10 h-10 lg:hidden cursor-pointer">
+        <div
+          onClick={() => router.push("/")}
+          className="relative w-10 h-10 lg:hidden cursor-pointer"
+        >
           <Image
             src="https://links.papareact.com/jjm"
             layout="fill"
@@ -43,24 +54,32 @@ const Header = () => {
         {/* Right */}
 
         <div className="flex items-center justify-end space-x-4">
-          <HomeIcon className="navBtn" />
+          <HomeIcon onClick={() => router.push("/")} className="navBtn" />
           <MenuIcon className="h-6 md:hidden cursor-pointer" />
-          <div className="relative navBtn">
-            <PaperAirplaneIcon className="navBtn rotate-45 mb-1" />
-            <div className="absolute -top-1.5 -right-2 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center text-white justify-center animate-pulse">
-              3
-            </div>
-          </div>
-          <PlusCircleIcon className="navBtn" />
-          <UserGroupIcon className="navBtn" />
-          <HeartIcon className="navBtn" />
 
-          <img
-            src="https://links.papareact.com/3ke"
-            alt="profile pic"
-            draggable={false}
-            className="h-10 rounded-full cursor-pointer"
-          />
+          {session ? (
+            <>
+              <div className="relative navBtn">
+                <PaperAirplaneIcon className="navBtn rotate-45 mb-1" />
+                <div className="absolute -top-1.5 -right-2 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center text-white justify-center animate-pulse">
+                  3
+                </div>
+              </div>
+              <PlusCircleIcon className="navBtn" />
+              <UserGroupIcon className="navBtn" />
+              <HeartIcon className="navBtn" />
+
+              <img
+                onClick={signOut}
+                src={session?.user?.image}
+                alt=""
+                draggable={false}
+                className="h-10 w-10 rounded-full cursor-pointer"
+              />
+            </>
+          ) : (
+            <button onClick={signIn}>Sign In</button>
+          )}
         </div>
       </div>
     </div>
