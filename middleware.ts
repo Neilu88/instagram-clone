@@ -1,20 +1,29 @@
-import { withAuth } from "next-auth/middleware";
+import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-export default withAuth({
-  callbacks: {
-    authorized({ req, token }) {
-      const isLoggedIn = !!token;
-      const isOnDashboard = req.nextUrl.pathname.startsWith("/dashboard");
-      if (isOnDashboard) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      }
-      return true;
-    },
-  },
-});
+// Define the middleware function
+export async function middleware(req: NextRequest) {
+  // Get the token from the request
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
+  // Define the URL for redirection
+  const url = req.nextUrl.clone();
+
+  // Check if the user is authenticated
+  const isLoggedIn = !!token;
+  const isOnDashboard = req.nextUrl.pathname.startsWith("/dashboard");
+
+  if (isOnDashboard && !isLoggedIn) {
+    // Redirect unauthenticated users to login page
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
+
+  // Allow the request to continue
+  return NextResponse.next();
+}
+
+// Define the middleware config to apply to specific routes
 export const config = {
-  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ["/((?!api|_next/static|_next/image|.png).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
