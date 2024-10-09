@@ -2,7 +2,8 @@ import { SwitchCamera } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import { calSans } from "@/app/fonts";
-// import { calSans } from "@/app/fonts";
+import logo from "@/public/assets/logosaas.png";
+import Image from "next/image";
 
 function Logo() {
   return (
